@@ -1,0 +1,7 @@
+#ambiente virtual python
+venv/
+__pycache__/
+*.pyc
+
+# variaveis sensiveis ou chave de api
+.env

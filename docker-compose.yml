@@ -1,0 +1,29 @@
+#version: '3.8'
+
+services:
+    router:
+        image: python:3.11-slim
+        container_name: net_router 
+        cap_add: 
+            - NET_ADMIN
+        command: >
+                bash -c "apt-get update && apt-get install -y iputils-ping iproute2  && tail -f dev/null"
+        networks:
+                - primary_net
+                - backup_net
+
+    client:
+        image: python:3.11-slim
+        container_name: net_client
+        command: >
+            bash -c "apt-get update && apt-get install -y iputils-ping iproute2 && tail -f dev/null"
+        networks: 
+            - primary_net
+networks:
+    primary_net:
+        driver: bridge
+    backup_net:
+        driver: bridge
+
+
+
